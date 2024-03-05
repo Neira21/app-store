@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import './style.css'
 import App from './App.jsx'
-import './index.css'
+import { ContextFilterProvider } from './context/ContextFilter.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <ContextFilterProvider>
     <App />
-  </React.StrictMode>,
+  </ContextFilterProvider>
 )

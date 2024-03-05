@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Products from './components/Products'
+import Filter from './components/Filter'
+import { useFilters } from './hooks/useFilters'
+import products from '../data/Info2.json'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Footer from './components/Footer'
+import CartPanel from './components/CartPanel'
+import { ContextCartProvider } from './context/ContextCart'
+import { useState } from 'react'
+import ButtonCartPanel from './components/ButtonCartPanel'
+
+const App = () => {
+  const { filterProducts } = useFilters()
+  const [productos] = useState(products)
+  const filteredProducts = filterProducts(productos)
+
+  // Ordernar por precio de menor a mayor
+  const sortedProducts = filteredProducts.sort((a, b) => a.price - b.price)
+
+
+  const [isCartOpen, setCartOpen] = useState(false)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ContextCartProvider>
+      <div className='app'>
+        <Filter />
+        <Products products={sortedProducts} />
+        <Footer />
+        <ButtonCartPanel setCartOpen={setCartOpen} />
+        <CartPanel isOpen={isCartOpen} onClose={() => setCartOpen(false)} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </ContextCartProvider>
   )
 }
 
