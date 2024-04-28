@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
     <div className='footer'>
-      <h4>Prueba técnica de React - </h4>
+      <h4>App Store - React-Vite - </h4>
       <span>Alvaro Neira Riveros</span>
       <h5>Carrito de Compras con useContext y useReducer</h5>
       {/* {JSON.stringify(contextCart.cart)} */}
